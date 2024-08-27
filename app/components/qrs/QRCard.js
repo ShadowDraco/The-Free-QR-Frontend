@@ -6,10 +6,10 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 export default function QRCard({ qr, index }) {
   return (
     <li
-      class="flex flex-wrap items-center justify-center"
+      class="flex flex-wrap items-center justify-center w-full"
       key={`${qr.url}/${qr.code}/${index}`}
     >
-      <div class="flex-shrink-0 m-6 relative overflow-hidden bg-purple-500 rounded-lg max-w-xs shadow-lg">
+      <div class="flex-shrink-0 m-6 relative overflow-hidden bg-purple-500 rounded-lg max-w-60 shadow-lg">
         <svg
           class="absolute bottom-0 left-0 mb-8"
           viewBox="0 0 375 283"
@@ -34,17 +34,13 @@ export default function QRCard({ qr, index }) {
             fill="white"
           />
         </svg>
-        <div class="relative pt-10 px-10 flex items-center justify-center">
-          <Image
-            class="relative w-40"
-            src={qr.qr}
-            alt=""
-            width={100}
-            height={100}
-          />
+        <div class="pt-10 px-10 flex items-center justify-center">
+          <Image class=" w-40" src={qr.qr} alt="" width={100} height={100} />
         </div>
-        <div class="relative text-white px-6 pb-6 mt-6">
-          <span class="block opacity-75 ">{qr.url}</span>
+        <div class="text-white p-4 w-full">
+          <span class="opacity-75 break-words line-clamp-3 max-w-fit overflow-ellipsis">
+            {qr.url}
+          </span>
           <div class="flex justify-between">
             <span class="block font-semibold text-xl">
               {qr.protected ? (

@@ -27,12 +27,13 @@ export default function AllQRS({ allQRS, replaceQRData }) {
   };
 
   return (
-    <div className="my-10">
-      <div className="py-6 flex flex-col justify-center sm:py-12">
-        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 to-purple-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="text-white relative px-4 py-10 bg-indigo-500 shadow-lg sm:rounded-3xl sm:p-20">
+    <div className="my-10 w-full">
+      <div className="py-6 flex flex-col justify-center w-full sm:py-12">
+        <div className="relative py-3 sm:max-w-2xl sm:mx-auto w-full">
+          <div className="absolute inset-0 w-full bg-gradient-to-r from-indigo-900 to-purple-500 shadow-lg transform -skew-y-6 sm:skew-y-0 -rotate-1 sm:-rotate-6 rounded-3xl"></div>
+          <div className="text-white relative px-2 py-10 bg-indigo-500 shadow-lg rounded-3xl sm:p-10 max-w-3xl">
             <form
+              className="w-full mb-5"
               onSubmit={handleSubmit((data) => {
                 postSearch(data);
               })}
@@ -67,7 +68,11 @@ export default function AllQRS({ allQRS, replaceQRData }) {
               </div>
             </form>
 
-            <ul role="list" className="divide-y divide-gray-100">
+            <ul
+              role="list"
+              className="divide-y divide-gray-100 scrollbar w-full overflow-x-hidden"
+              style={{ maxHeight: "63em", overflowY: "scroll" }}
+            >
               {allQRS[0]?.length > 0 ? (
                 allQRS[0].map((qr, index) => (
                   <QRCard key={`${qr.code}-${index}`} qr={qr} index={index} />

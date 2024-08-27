@@ -1,91 +1,92 @@
-import { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { PopoverButton } from '@headlessui/react'
-import createRandomString from '../lib'
-import CloseButton from '../menus/CloseButton'
-import LoadingSpinner from '../misc/LoadingSpinner'
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { PopoverButton } from "@headlessui/react";
+import createRandomString from "../lib";
+import CloseButton from "../menus/CloseButton";
+import LoadingSpinner from "../misc/LoadingSpinner";
 
 export default function CreateQRForm({ addNewQRData }) {
-  const { register, handleSubmit } = useForm()
-  const [data, setData] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [randomString, setRandomString] = useState()
-  const [error, setError] = useState('')
+  const { register, handleSubmit } = useForm();
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [randomString, setRandomString] = useState();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    setRandomString(createRandomString(8))
-  }, [])
+    setRandomString(createRandomString(8));
+  }, []);
 
-  const validateURL = data => {
+  const validateURL = (data) => {
     return (
-      data.url.indexOf('http://') === 0 || data.url.indexOf('https://') === 0
-    )
-  }
+      data.url.indexOf("http://") === 0 || data.url.indexOf("https://") === 0
+    );
+  };
 
-  const postForm = async formData => {
+  const postForm = async (formData) => {
     if (validateURL(formData)) {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/create`, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(formData),
-      })
-      const body = await response.json()
+      });
+      const body = await response.json();
 
-      setError(body.error)
-      if (body.QR !== '') {
-        addNewQRData(body)
+      setError(body.error);
+      if (body.QR !== "") {
+        addNewQRData(body);
       }
     } else {
-      setError('That is an invalid URL!')
+      setError("That is an invalid URL!");
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <form
-      onSubmit={handleSubmit(data => {
-        setData(data)
-        postForm(data)
+      onSubmit={handleSubmit((data) => {
+        setData(data);
+        postForm(data);
       })}
-      className=''
+      className=""
     >
-      <div className='space-y-12'>
-        <div className='border-b border-gray-900/10 pb-12'>
-          <h2 className='text-base font-semibold leading-7 text-gray-900'>
+      <div className="space-y-12">
+        <div className="border-b border-gray-900/10 pb-12">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
             Generate a QR
           </h2>
-          <p className='mt-1 text-sm leading-6 text-gray-600'>
-            This QR code will keep track of how many times it has been scanned.{' '}
+          <p className="mt-1 text-sm leading-6 text-gray-600">
+            This QR code will keep track of how many times it has been scanned.{" "}
             <strong>Nothing More</strong>! <br></br>
             You can group your QR codes with a password, and make them invisible
             to the public.
           </p>
 
           {/* URL Field */}
-          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-            <div className='sm:col-span-4'>
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label
-                htmlFor='url'
-                className='block text-sm font-medium leading-6 text-gray-900'
+                htmlFor="url"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 URL
               </label>
-              <div className='mt-2'>
-                <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
-                  <span className='flex select-none items-center pl-3 text-gray-500 sm:text-sm'>
+              <div className="mt-2">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
                     Include https://
                   </span>
                   <input
-                    {...register('url')}
-                    id='url'
-                    name='url'
-                    type='url'
-                    placeholder='https://youtube.com'
-                    autoComplete='off'
-                    className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
+                    {...register("url")}
+                    id="url"
+                    name="url"
+                    type="url"
+                    placeholder="https://youtube.com"
+                    autoComplete="off"
+                    maxLength={256}
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -93,31 +94,32 @@ export default function CreateQRForm({ addNewQRData }) {
           </div>
 
           {/* Password Field */}
-          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-            <div className='sm:col-span-4'>
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label
-                htmlFor='password'
-                className='block text-sm font-medium leading-6 text-gray-900'
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Unique Code
               </label>
-              <p className='mt-1 text-sm leading-6 text-gray-600'>
-                <strong>Optionally</strong> set a grouping code for this QR{' '}
-                <br></br>- all QRs with the same code are grouped together{' '}
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                <strong>Optionally</strong> set a grouping code for this QR{" "}
+                <br></br>- all QRs with the same code are grouped together{" "}
               </p>
-              <div className='mt-2'>
-                <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
-                  <span className='flex select-none items-center pl-3 text-gray-500 sm:text-sm'>
+              <div className="mt-2">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
                     Unique:
                   </span>
                   <input
-                    {...register('code')}
-                    id='code'
-                    name='code'
-                    type='text'
+                    {...register("code")}
+                    id="code"
+                    name="code"
+                    type="text"
                     placeholder={randomString}
-                    autoComplete='off'
-                    className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
+                    autoComplete="off"
+                    maxLength={24}
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -125,26 +127,26 @@ export default function CreateQRForm({ addNewQRData }) {
           </div>
 
           {/* Protected Field */}
-          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
-            <div className='sm:col-span-4'>
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label
-                htmlFor='protected'
-                className='block text-sm font-medium leading-6 text-gray-900'
+                htmlFor="protected"
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 <strong>Invisible</strong> to everyone?
               </label>
-              <p className='mt-1 text-sm leading-6 text-gray-600'>
-                <strong>Optionally</strong> make this QR code invisible to{' '}
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                <strong>Optionally</strong> make this QR code invisible to{" "}
                 <em>those who do not have the Unique Code</em>
               </p>
-              <div className='mt-2'>
-                <div className='flex h-6 items-center'>
+              <div className="mt-2">
+                <div className="flex h-6 items-center">
                   <input
-                    {...register('protected')}
-                    id='protected'
-                    name='protected'
-                    type='checkbox'
-                    className='h-4 w-4 rounded border-gray-500 text-indigo-600 focus:ring-indigo-600'
+                    {...register("protected")}
+                    id="protected"
+                    name="protected"
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-gray-500 text-indigo-600 focus:ring-indigo-600"
                   />
                 </div>
               </div>
@@ -153,11 +155,11 @@ export default function CreateQRForm({ addNewQRData }) {
         </div>
       </div>
 
-      <div className='border-b border-gray-900/10 pb-12'>
-        <h2 className='text-base font-semibold leading-7 text-gray-900'>
+      <div className="border-b border-gray-900/10 pb-12">
+        <h2 className="text-base font-semibold leading-7 text-gray-900">
           What now?
         </h2>
-        <p className='mt-1 text-sm leading-6 text-gray-600'>
+        <p className="mt-1 text-sm leading-6 text-gray-600">
           Please make sure that you do not use a password from other websites as
           your Unique Code. <br></br>
           Now take your QR code with you everywhere, track its traffic, and see
@@ -169,28 +171,28 @@ export default function CreateQRForm({ addNewQRData }) {
         </p>
       </div>
 
-      <div className='mt-6 flex gap-5 items-center justify-startgap-x-6'>
+      <div className="mt-6 flex gap-5 items-center justify-startgap-x-6">
         <button
-          type='submit'
+          type="submit"
           disabled={loading}
-          class='relative inline-block text-lg group'
+          class="relative inline-block text-lg group"
         >
-          <span class='relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-blue-900 rounded-lg group-hover:text-white'>
-            <span class='absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50'></span>
-            <span class='absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease'></span>
-            <span class='relative'>Create</span>
+          <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-blue-900 rounded-lg group-hover:text-white">
+            <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+            <span class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
+            <span class="relative">Create</span>
           </span>
           <span
-            class='absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-blue-700 rounded-lg group-hover:mb-0 group-hover:mr-0'
-            data-rounded='rounded-lg'
+            class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-blue-700 rounded-lg group-hover:mb-0 group-hover:mr-0"
+            data-rounded="rounded-lg"
           ></span>
         </button>
         <LoadingSpinner loading={loading} />
-        <PopoverButton className='my-5 inline-flex font-semibold leading-6 text-gray-900'>
+        <PopoverButton className="my-5 inline-flex font-semibold leading-6 text-gray-900">
           <CloseButton />
         </PopoverButton>
-        <label className='text-red-500 mx-3'>{error}</label>
+        <label className="text-red-500 mx-3">{error}</label>
       </div>
     </form>
-  )
+  );
 }
