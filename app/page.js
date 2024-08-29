@@ -28,8 +28,7 @@ export default function Home() {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_URL}/qr/all`, {}).then(async (res) => {
       const data = await res.json();
-      console.log(data);
-      setAllQRs([...allQRS, data.allQRS]);
+      setAllQRs(data.allQRS);
       setAllTimeQRs(data.allTimeQRs);
       setAllTimeScans(data.allTimeScans);
       if (data.error) {

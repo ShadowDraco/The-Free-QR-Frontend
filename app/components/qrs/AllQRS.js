@@ -73,8 +73,8 @@ export default function AllQRS({ allQRS, replaceQRData }) {
               className="divide-y divide-gray-100 scrollbar w-full overflow-x-hidden"
               style={{ maxHeight: "63em", overflowY: "scroll" }}
             >
-              {allQRS[0]?.length > 0 ? (
-                allQRS[0].map((qr, index) => (
+              {allQRS?.length > 0 ? (
+                allQRS.map((qr, index) => (
                   <QRCard key={`${qr.code}-${index}`} qr={qr} index={index} />
                 ))
               ) : (
