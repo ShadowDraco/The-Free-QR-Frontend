@@ -61,6 +61,7 @@ export default function QRCard({ qr, index }) {
                 />
               )}
             </span>
+            <span>{qr.count}</span>
             <span className="block bg-white rounded-full text-purple-500 text-xs font-bold px-3 py-2 leading-none flex items-center">
               {qr.code}
             </span>
