@@ -16,6 +16,9 @@ The website has no secrets and stores no personal information. All QR's have the
 - Search by Group-Code
 - Number of scans tracking (Non-intrusive)
 - Users can message for support
+- QRs stored in database
+- NSFW QR filtering
+- (TODO) Add password for creator to edit QRs
 
 ## API Reference
 
@@ -53,7 +56,9 @@ This route runs functions on the QR with the equivalent URL parameter. Then redi
 
 #### Create (New QR)
 
-Uses request body, `{ url, code, protected? }` to create a new QR, store it, and send it back to the user.
+Uses request body, `{ url, code, protected?, password }` to create a new QR, store it, and send it back to the user.
+
+Does not allow NSFW urls to be created
 
 ```http
   GET /qr/create
@@ -81,6 +86,7 @@ Front End
 Backend
 `URL` = "http://localhost:3001"
 `PORT` = 3001
+`MONGO_CONNECTION_URI` = "YOUR-MONGO-URI"
 
 ## Run Locally
 
