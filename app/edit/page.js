@@ -6,17 +6,22 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 import QREditCard from "../components/qrs/QREditCard";
 
-export default function AllQRS({ params }) {
+export default function AllQRS() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const [code, setCode] = useState("");
   const allQRS = [
     {
       url: "https://youtube.com",
       code: "Cool!",
       protected: false,
-      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Pencil_drawing_of_a_girl_in_ecstasy.jpg/220px-Pencil_drawing_of_a_girl_in_ecstasy.jpg",
+      img: "",
     },
   ];
+
+  const selectQRCode = (code) => {
+    setCode(code);
+  };
 
   const postSearch = async (formData) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/code`, {
@@ -86,6 +91,7 @@ export default function AllQRS({ params }) {
               {allQRS?.length > 0 ? (
                 allQRS.map((qr, index) => (
                   <QREditCard
+                    selectQRCode={selectQRCode}
                     key={`${qr.code}-${index}`}
                     qr={qr}
                     index={index}
