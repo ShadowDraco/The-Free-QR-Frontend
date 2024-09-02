@@ -24,7 +24,7 @@ export default function CreateQRForm({ addNewQRData }) {
   const postForm = async (formData) => {
     if (validateURL(formData)) {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/create`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/edit`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -91,11 +91,11 @@ export default function CreateQRForm({ addNewQRData }) {
             </div>
           </div>
 
-          {/* Password Field */}
+          {/* Code Field */}
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
-                htmlFor="password"
+                htmlFor="code"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Unique Code
@@ -150,6 +150,38 @@ export default function CreateQRForm({ addNewQRData }) {
               </div>
             </div>
           </div>
+
+          {/* Password Field */}
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                <strong>Unique</strong>PASSWORD
+              </label>
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                <strong>Optionally</strong> set an EDIT password <br></br>- To
+                edit this QR in the future you must enter this password{" "}
+              </p>
+              <div className="mt-2">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+                    UNIQUE:
+                  </span>
+                  <input
+                    {...register("password")}
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="off"
+                    maxLength={24}
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -159,7 +191,7 @@ export default function CreateQRForm({ addNewQRData }) {
         </h2>
         <p className="mt-1 text-sm leading-6 text-gray-600">
           Please make sure that you do not use a password from other websites as
-          your Unique Code. <br></br>
+          your Unique Code or edit password. <br></br>
           Now take your QR code with you everywhere, track its traffic, and see
           how other&apos;s are doing!
           <br></br>

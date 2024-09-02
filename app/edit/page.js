@@ -10,14 +10,15 @@ export default function AllQRS() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
   const [code, setCode] = useState("");
-  const allQRS = [
+  const [selectedQR, setSelectedQR] = useState("");
+  const [allQRS, setAllQRS] = useState([
     {
       url: "https://youtube.com",
       code: "Cool!",
       protected: false,
       img: "",
     },
-  ];
+  ]);
 
   const selectQRCode = (code) => {
     setCode(code);

@@ -5,7 +5,7 @@ import createRandomString from "../lib";
 import CloseButton from "../menus/CloseButton";
 import LoadingSpinner from "../misc/LoadingSpinner";
 
-export default function EditQRForm() {
+export default function EditQRForm({ selectedQRCode }) {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [randomString, setRandomString] = useState();
@@ -35,7 +35,7 @@ export default function EditQRForm() {
 
       setError(body.error);
       if (body.QR !== "") {
-        addNewQRData(body);
+        //addNewQRData(body);
       }
     } else {
       setError("That is an invalid URL!");
@@ -81,6 +81,7 @@ export default function EditQRForm() {
                     id="url"
                     name="url"
                     type="url"
+                    value={selectedQRCode.url}
                     placeholder="https://youtube.com"
                     autoComplete="off"
                     maxLength={256}
@@ -114,6 +115,7 @@ export default function EditQRForm() {
                     id="code"
                     name="code"
                     type="text"
+                    value={selectedQRCode.code}
                     placeholder={randomString}
                     autoComplete="off"
                     maxLength={24}
@@ -143,6 +145,7 @@ export default function EditQRForm() {
                     {...register("protected")}
                     id="protected"
                     name="protected"
+                    value={selectedQRCode.protected}
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-500 text-indigo-600 focus:ring-indigo-600"
                   />
@@ -150,6 +153,52 @@ export default function EditQRForm() {
               </div>
             </div>
           </div>
+
+          {/* Password Field */}
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                <strong>Unique</strong>PASSWORD
+              </label>
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                <strong>Optionally</strong> set an EDIT password <br></br>- To
+                edit this QR in the future you must enter this password{" "}
+              </p>
+              <div className="mt-2">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+                    UNIQUE:
+                  </span>
+                  <input
+                    {...register("password")}
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="off"
+                    maxLength={24}
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input
+            {...register("oldCode")}
+            id="oldCode"
+            name="oldCode"
+            value={selectedQRCode.code}
+            hidden
+          />
+          <input
+            {...register("oldUrl")}
+            id="oldUrl"
+            name="oldUrl"
+            value={selectedQRCode.url}
+          />
         </div>
       </div>
 
