@@ -5,23 +5,24 @@ import { useForm } from "react-hook-form";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 import QREditCard from "../components/qrs/QREditCard";
+import EditFlyoutForm from "../components/menus/EditFlyoutForm";
+import testQR from "../../public/testQR.webp";
 
 export default function AllQRS() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
-  const [code, setCode] = useState("");
   const [selectedQR, setSelectedQR] = useState("");
   const [allQRS, setAllQRS] = useState([
     {
       url: "https://youtube.com",
       code: "Cool!",
       protected: false,
-      img: "",
+      qr: testQR.src,
     },
   ]);
 
-  const selectQRCode = (code) => {
-    setCode(code);
+  const selectQRCode = (qrCode) => {
+    setSelectedQR(qrCode);
   };
 
   const postSearch = async (formData) => {
@@ -36,9 +37,10 @@ export default function AllQRS() {
     const body = await response.json();
 
     setError(body.error);
+    app / components / menus / FlyoutForm.js;
 
     if (body.codeQRs) {
-      replaceQRData(body);
+      setAllQRS(body.codeQRs);
     }
   };
 
@@ -47,6 +49,8 @@ export default function AllQRS() {
       <div className="py-6 flex flex-col justify-center w-full sm:py-12">
         <div className="relative py-3 sm:max-w-2xl sm:mx-auto w-full">
           <div className="absolute inset-0 w-full bg-gradient-to-r from-indigo-900 to-purple-500 shadow-lg transform -skew-y-6 sm:skew-y-0 -rotate-1 sm:-rotate-6 rounded-3xl"></div>
+
+          {selectedQR && <EditFlyoutForm selectedQRCode={selectedQR} />}
           <div className="text-white relative px-2 py-10 bg-indigo-500 shadow-lg rounded-3xl sm:p-10 max-w-3xl">
             <form
               className="w-full mb-5"

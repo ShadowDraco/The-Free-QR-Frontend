@@ -69,7 +69,7 @@ export default function EditQRForm({ selectedQRCode }) {
                 htmlFor="url"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                URL
+                NEW URL
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -96,15 +96,11 @@ export default function EditQRForm({ selectedQRCode }) {
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
-                htmlFor="password"
+                htmlFor="code"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Unique Code
+                New Unique Code
               </label>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                <strong>Optionally</strong> set a grouping code for this QR{" "}
-                <br></br>- all QRs with the same code are grouped together{" "}
-              </p>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
@@ -161,11 +157,10 @@ export default function EditQRForm({ selectedQRCode }) {
                 htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                <strong>Unique</strong>PASSWORD
+                <strong>Unique </strong>PASSWORD
               </label>
               <p className="mt-1 text-sm leading-6 text-gray-600">
-                <strong>Optionally</strong> set an EDIT password <br></br>- To
-                edit this QR in the future you must enter this password{" "}
+                <strong>Required</strong> enter your edit password
               </p>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -198,6 +193,7 @@ export default function EditQRForm({ selectedQRCode }) {
             id="oldUrl"
             name="oldUrl"
             value={selectedQRCode.url}
+            hidden
           />
         </div>
       </div>

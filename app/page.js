@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import AllTimeStats from "./components/headings/AllTimeStats";
 import FormStatSpacers from "./components/misc/FormStatSpacers";
-import FlyoutForm from "./components/menus/FlyoutForm";
+import CreateFlyoutForm from "./components/menus/CreateFlyoutForm";
 import AllQRS from "./components/qrs/AllQRS";
 
 export default function Home() {
@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-12 pt-0 bg-gray-100 bg-gradient-to-br from-indigo-200 via-purple-100 to-purple-200">
-      <FlyoutForm addNewQRData={addNewQRData} />
+      <CreateFlyoutForm addNewQRData={addNewQRData} />
       <FormStatSpacers />
       <AllTimeStats allTimeQRs={allTimeQRs} allTimeScans={allTimeScans} />
       <AllQRS allQRS={allQRS} replaceQRData={replaceQRData} />
