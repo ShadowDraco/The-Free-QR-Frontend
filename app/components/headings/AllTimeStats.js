@@ -1,6 +1,6 @@
 export default function AllTimeStats({ allTimeQRs, allTimeScans }) {
   return (
-    <div className="stats shadow flex gap-5 justify-around mb-5 p-3 w-full bg-gradient-to-br from-indigo-300 via-purple-100 to-purple-300">
+    <div className="stats shadow flex gap-5 justify-around mb-5 p-3 w-full bg-gradient-to-bl from-purple-100 to-purple-300">
       <div className="stat text-sky-600 font-bold">
         <div className="stat-figure text-primary">
           <svg

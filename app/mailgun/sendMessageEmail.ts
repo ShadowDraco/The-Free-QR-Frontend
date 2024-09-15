@@ -10,9 +10,9 @@ type MessageParams = {
 
 export default async function sendMessageEmail(message: MessageParams) {
   const messageData = {
-    from: `THE Free QR: MESSAGE <Messianic@WebServices>`,
-    to: message.subject,
-    subject: 'General Message',
+    from: `THE Free QR <Messianic@WebServices>`,
+    to: 'stormethan10@gmail.com',
+    subject: message.subject,
     html: `<html>
   <head>
     <!-- Compiled with Bootstrap Email version: 1.4.0 --><meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -60,7 +60,7 @@ export default async function sendMessageEmail(message: MessageParams) {
                                       <tbody>
                                         <tr>
                                           <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 20px;" align="left">
-                                            <h1 class="h3  textCenter" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">Berkeketli Art</h1>
+                                            <h1 class="h3  textCenter" style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="center">THE Free QR</h1>
                                             <table class="s-2 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                               <tbody>
                                                 <tr>

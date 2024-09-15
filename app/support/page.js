@@ -40,7 +40,12 @@ export default function Page() {
             </p>
           </div>
 
-          <form>
+          <form
+            onSubmit={handleSubmit((data) => {
+              setData(data);
+              postForm(data);
+            })}
+          >
             <input
               {...register("email")}
               className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -54,7 +59,7 @@ export default function Page() {
               className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Subject"
-              name="_subject"
+              name="subject"
             />
 
             <textarea
@@ -66,14 +71,14 @@ export default function Page() {
               style={{ height: "121px" }}
             ></textarea>
 
-            <div classNameName="flex justify-between">
+            <div className="flex justify-between">
               <input
-                classNameName="shadow bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="shadow bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
                 value="Send ➤"
               />
               <input
-                classNameName="shadow bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="shadow bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="reset"
               />
             </div>
