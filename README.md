@@ -1,7 +1,7 @@
 
 # THE Free QR
 
-[Backend](https://github.com/ShadowDraco/QRCodeServer)
+[Backend](https://github.com/ShadowDraco/The-Free-QR-Backend)
 
 A Free and open source QR code generator.
 The goal is to provide QR's that never *Cost*, *Expire*, or *require* useless information from the user.
