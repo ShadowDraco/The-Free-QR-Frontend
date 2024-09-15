@@ -1,20 +1,33 @@
 'use client'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 export default function Home() {
+  const { register, handleSubmit } = useForm()
+  const [data, setData] = useState("")
   const [allQRS, setAllQRS] = useState([])
-
+  const [error, setError] = useState("")
+ 
   const getAllQRS = useEffect(() => {
+    //https://qrcodeserver.onrender.com/qr/all
+    //http://localhost:3001/qr/all
     fetch('https://qrcodeserver.onrender.com/qr/all', {}).then(async res => {
       setAllQRS(await res.json())
     })
   }, [])
 
-  const submit = async event => {
-    event.preventDefault()
+  const validateURL = () => {
+    return data.url.indexOf("http://") === 0 || data.url.indexOf("https://" === 0)
+  }
 
-    const body = JSON.stringify({ url: event.target[0].value })
+  const postForm = async (data) => {
+
+    //https://qrcodeserver.onrender.com/qr/create
+    //http://localhost:3001/qr/create
+    console.log(data.url.indexOf("http", 0))
+    if (validateURL) {
+      console.log(data)
     const response = await fetch(
       'https://qrcodeserver.onrender.com/qr/create',
       {
@@ -22,13 +35,16 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: body,
+        body: JSON.stringify(data),
       }
     )
-    const data = await response.json()
-    console.log(data)
-    setAllQRS([...allQRS, data])
+      const body = await response.json()
+      if (body.QR !== '') {
+        setAllQRS([...allQRS, body.QR])
+      }
+    } 
   }
+
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
@@ -36,17 +52,18 @@ export default function Home() {
         <h1>QR CODE Generator and tracker</h1>
         <form
           // action=''
-          onSubmit={e => {
-            submit(e)
-          }}
+          onSubmit={handleSubmit((data) => {
+            setData(JSON.stringify(data))
+            postForm(data)
+          })}
         >
           <label htmlFor='url'>URL</label>
-          <input type='text' name='url' />
+          <input {...register("url")} type="url" name='url' placeholder='https://youtube.com'/>
           <button
             type='submit'
             style={{ backgroundColor: '#5555ff', color: 'ff' }}
           >
-            CREATE CODE
+            CREATE QR CODE
           </button>
         </form>
 
