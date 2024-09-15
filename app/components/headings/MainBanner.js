@@ -1,74 +1,33 @@
 import React from 'react'
-import {
-  CurrencyDollarIcon,
-  CodeBracketIcon,
-  ShieldCheckIcon,
-  EyeSlashIcon,
-  XCircleIcon,
-  UserIcon,
-} from '@heroicons/react/20/solid'
+import Features from './Features'
+import SupportButton from './SupportButton'
 
 import { KofiButton } from 'react-kofi-button'
 
 export default function MainBanner() {
   return (
-    <div className='lg:flex lg:items-center lg:justify-between w-full mb-12'>
+    <div className='lg:flex lg:items-center lg:justify-between w-full bg-gray-200 p-5 bg-gradient-to-br from-purple-100 via-indigo-200 to-indigo-200'>
       <div className='min-w-0 flex-1'>
-        <h2 className='text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight'>
-          <strong>The</strong> Free QR Code Generator
-        </h2>
-        <div className='mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6'>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <CurrencyDollarIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            Free
-          </div>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <CodeBracketIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            Open Source
-          </div>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <ShieldCheckIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            Secure
-          </div>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <EyeSlashIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            No Cookies
-          </div>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <UserIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            No Signups
-          </div>
-          <div className='mt-2 flex items-center text-sm text-gray-600'>
-            <XCircleIcon
-              aria-hidden='true'
-              className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400'
-            />
-            Nothing bad
-          </div>
-        </div>
+        <a href='/'>
+          <h3 className='text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl p-6'>
+            <span className='block'>
+              THE{' '}
+              <span className='text-transparent bg-clip-text bg-gradient-to-tr to-cyan-400 from-blue-700'>
+                FREE QR
+              </span>
+            </span>
+          </h3>
+        </a>
+        <Features />
       </div>
-      <div className='mt-2 flex items-center text-sm text-gray-600'>
+      <div className='mt-3 flex flex-col gap-3 flex-wrap text-sm text-gray-600'>
         <KofiButton
           username='stormyfrolic'
           label='Support Us'
-          preset='thin'
+          preset=''
           backgroundColor='kofiRed'
         />
+        <SupportButton />
       </div>
     </div>
   )

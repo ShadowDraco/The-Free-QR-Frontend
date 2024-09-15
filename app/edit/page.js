@@ -1,12 +1,29 @@
+"use client";
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
-import QRCard from "./QRCard";
+import QREditCard from "../components/qrs/QREditCard";
+import EditFlyoutForm from "../components/menus/EditFlyoutForm";
+import testQR from "../../public/testQR.webp";
 
-export default function AllQRS({ allQRS, replaceQRData }) {
+export default function AllQRS() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
+  const [selectedQR, setSelectedQR] = useState("");
+  const [allQRS, setAllQRS] = useState([
+    {
+      url: "https://youtube.com",
+      code: "Cool!",
+      protected: false,
+      qr: testQR.src,
+    },
+  ]);
+
+  const selectQRCode = (qrCode) => {
+    setSelectedQR(qrCode);
+  };
 
   const postSearch = async (formData) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/code`, {
@@ -20,9 +37,10 @@ export default function AllQRS({ allQRS, replaceQRData }) {
     const body = await response.json();
 
     setError(body.error);
+    app / components / menus / FlyoutForm.js;
 
     if (body.codeQRs) {
-      replaceQRData(body);
+      setAllQRS(body.codeQRs);
     }
   };
 
@@ -31,6 +49,8 @@ export default function AllQRS({ allQRS, replaceQRData }) {
       <div className="py-6 flex flex-col justify-center w-full sm:py-12">
         <div className="relative py-3 sm:max-w-2xl sm:mx-auto w-full">
           <div className="absolute inset-0 w-full bg-gradient-to-r from-indigo-900 to-purple-500 shadow-lg transform -skew-y-6 sm:skew-y-0 -rotate-1 sm:-rotate-6 rounded-3xl"></div>
+
+          {selectedQR && <EditFlyoutForm selectedQRCode={selectedQR} />}
           <div className="text-white relative px-2 py-10 bg-indigo-500 shadow-lg rounded-3xl sm:p-10 max-w-3xl">
             <form
               className="w-full mb-5"
@@ -75,11 +95,16 @@ export default function AllQRS({ allQRS, replaceQRData }) {
             >
               {allQRS?.length > 0 ? (
                 allQRS.map((qr, index) => (
-                  <QRCard key={`${qr.code}-${index}`} qr={qr} index={index} />
+                  <QREditCard
+                    selectQRCode={selectQRCode}
+                    key={`${qr.code}-${index}`}
+                    qr={qr}
+                    index={index}
+                  />
                 ))
               ) : (
                 <div className="my-10">
-                  <p className="">There are no QRs here. Be the FIRST!</p>
+                  <p className="">There are no QRs here</p>
                 </div>
               )}
             </ul>

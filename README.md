@@ -1,38 +1,116 @@
-# Front end to QRCode Server
+# THE Free QR
 
-Visit this page to link to and create site visit counters via link or url
+[Backend](https://github.com/ShadowDraco/The-Free-QR-Backend)
 
-## Getting Started
+A Free and open source QR code generator.
+The goal is to provide QR's that never _Cost_, _Expire_, or _require_ useless information from the user.
 
-First, run the development server:
+The website has no secrets and stores no personal information. All QR's have the ability to be shown off, or left hidden.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- Easy to use
+- Create QRs
+- View other QRs
+- Private QRs
+- Search by Group-Code
+- Number of scans tracking (Non-intrusive)
+- Users can message for support
+- QRs stored in database
+- NSFW QR filtering
+- (WIP) Owner uses password to update/delete existing QRs
+
+## API Reference
+
+#### Get all items
+
+```http
+  GET /qr/all
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Filters out protected items before returning JSON
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Get by group code
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Gets all items with provided group code. (Includes protected items)
 
-## Learn More
+```http
+  GET /qr/${code}
+```
 
-To learn more about Next.js, take a look at the following resources:
+| Parameter | Type     | Description                               |
+| :-------- | :------- | :---------------------------------------- |
+| `code`    | `string` | **Required**. Group-Code of item to fetch |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Visit (Redirect)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This route runs functions on the QR with the equivalent URL parameter. Then redirects the user to said URL.
 
-## Deploy on Vercel
+```http
+  GET /qr/visit/${url}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Parameter | Type     | Description                                            |
+| :-------- | :------- | :----------------------------------------------------- |
+| `url`     | `string` | **Required**. URI-Encoded URL to redirect the user to. |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Create (New QR)
+
+Uses request body, `{ url, code, protected?, password }` to create a new QR, store it, and send it back to the user.
+
+Does not allow NSFW urls to be created
+
+```http
+  GET /qr/create
+```
+
+| Parameter   | Type     | Description                                            |
+| :---------- | :------- | :----------------------------------------------------- |
+| `url`       | `string` | **Required**. URI-Encoded URL to redirect the user to. |
+| `code`      | `string` | **Optional**. group code to organize related QRs.      |
+| `protected` | `bool`   | **Optional**. Is this QR visible to everyone?          |
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+Front End
+`NEXT_PUBLIC_URL` = "http://localhost:3001"
+`MAILGUN_SECRET_KEY` = YOUR-MAILGUN-KEY
+`MAILGUN_DOMAIN` = YOUR-MAILGUN-DOMAIN
+^ Needed in production
+
+`NEXT_PUBLIC_NEXT_URL` = "http://localhost:3000"
+^ Same as `NEXT_PUBLIC_URL` in production
+
+Backend
+`URL` = "http://localhost:3001"
+`PORT` = 3001
+`MONGO_CONNECTION_URI` = "YOUR-MONGO-URI"
+
+## Run Locally
+
+Clone the project (Front and Back)
+
+````bash
+  git clone https://github.com/ShadowDraco/QRCodeFrontend
+
+  git clone https://github.com/ShadowDraco/QRCodeServer
+
+Go to the directories
+
+Install dependencies
+
+```bash
+  npm install
+````
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+## Support
+
+For support, leave a message throught the website or open an issue on Github
