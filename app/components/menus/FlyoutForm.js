@@ -6,9 +6,9 @@ import CreateQRForm from "../forms/CreateQRForm";
 
 export default function FlyoutForm({ addNewQRData }) {
   return (
-    <Popover className="relative">
-      <PopoverButton className=" mt-10 w-full inline-flex items-center text-center gap-x-1 font-semibold leading-6 text-gray-900">
-        <span className="text-3xl">
+    <Popover className="relative gap-5 justify-around mt-5 p-5 w-full bg-gradient-to-br from-indigo-300 via-purple-100 to-purple-300">
+      <PopoverButton className=" w-full text-center inline-flex items-center gap-x-1 font-semibold leading-6 text-gray-900">
+        <span className="text-3xl text-center w-full">
           <em>Create Your FREE QR</em>
         </span>
         <ChevronDownIcon aria-hidden="true" className="h-10 w-10" />

@@ -4,7 +4,7 @@ import SupportButton from "./SupportButton";
 import AllTimeStats from "./AllTimeStats";
 import { KofiButton } from "react-kofi-button";
 
-export default function MainBanner({ allTimeQRs, allTimeScans }) {
+export default function MainBanner() {
   return (
     <div className="lg:flex lg:items-center lg:justify-between w-full bg-gray-200 p-5 bg-gradient-to-br from-purple-100 via-indigo-200 to-indigo-200">
       <div className="min-w-0 flex-1">
@@ -26,7 +26,6 @@ export default function MainBanner({ allTimeQRs, allTimeScans }) {
           backgroundColor="kofiRed"
         />
         <SupportButton />
-        <AllTimeStats allTimeQRs={allTimeQRs} allTimeScans={allTimeScans} />
       </div>
     </div>
   );
