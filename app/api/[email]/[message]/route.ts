@@ -2,6 +2,7 @@ import sendMessageEmail from '../../../mailgun/sendMessageEmail';
 
 type MessageParams = {
   email: 'string';
+  subject: 'string';
   message: 'string';
 };
 export async function POST(req: Request, route: { params: MessageParams }) {
