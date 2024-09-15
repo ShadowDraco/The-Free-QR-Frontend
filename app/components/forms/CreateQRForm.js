@@ -8,11 +8,14 @@ export default function CreateQRForm({ addNewQRData }) {
   const [randomString, setRandomString] = useState(createRandomString(8));
   const [error, setError] = useState("");
 
+  const validateURL = (data) => {
+    return (
+      data.url.indexOf("http://") === 0 || data.url.indexOf("https://") === 0
+    );
+  };
+
   const postForm = async (formData) => {
-    if (
-      formData.url.indexOf("http://") === 0 ||
-      formData.url.indexOf("https://" === 0)
-    ) {
+    if (validateURL(formData)) {
       const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/qr/create`, {
         headers: {
           "Content-Type": "application/json",
@@ -21,10 +24,11 @@ export default function CreateQRForm({ addNewQRData }) {
         body: JSON.stringify(formData),
       });
       const body = await response.json();
+
+      setError(body.error);
       if (body.QR !== "") {
         addNewQRData(body);
       }
-      setError("");
     } else {
       setError("That is an invalid URL!");
     }
@@ -146,7 +150,7 @@ export default function CreateQRForm({ addNewQRData }) {
           Please make sure that you do not use a password from other websites as
           your Unique Code. <br></br>
           Now take your QR code with you everywhere, track its traffic, and see
-          how other's are doing!
+          how other&apos;s are doing!
           <br></br>
           <strong>
             There are no cookies, no trackers, no identifiers, no nothing.
