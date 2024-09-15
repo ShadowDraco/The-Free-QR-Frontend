@@ -6,7 +6,7 @@
 A Free and open source QR code generator.
 The goal is to provide QR's that never *Cost*, *Expire*, or *require* useless information from the user.
 
-The website has no secrets and stores no personal information. All QR's have the ability to be shown off, or be left hidden. 
+The website has no secrets and stores no personal information. All QR's have the ability to be shown off, or left hidden. 
 
 ## Features
 
@@ -17,9 +17,6 @@ The website has no secrets and stores no personal information. All QR's have the
 - Search by Group-Code
 - Number of scans tracking (Non-intrusive)
 - Users can message for support
-
-
-
 
 ## API Reference
 
