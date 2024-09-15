@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import createRandomString from "../lib";
 
 export default function CreateQRForm({ addNewQRData }) {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
-  const [randomString, setRandomString] = useState(createRandomString(8));
+  const [randomString, setRandomString] = useState();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setRandomString(createRandomString(8));
+  }, []);
 
   const validateURL = (data) => {
     return (
@@ -40,6 +44,7 @@ export default function CreateQRForm({ addNewQRData }) {
         setData(data);
         postForm(data);
       })}
+      className=""
     >
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">

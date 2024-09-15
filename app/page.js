@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 
 import MainBanner from "./components/headings/MainBanner";
-import CreateQRForm from "./components/forms/CreateQRForm";
+import FlyoutForm from "./components/menus/FlyoutForm";
 import AllQRS from "./components/qrs/AllQRS";
+import AllTimeStats from "./components/headings/AllTimeStats";
 
 export default function Home() {
   const [allTimeQRs, setAllTimeQRs] = useState(0);
@@ -17,12 +18,18 @@ export default function Home() {
     setAllTimeScans(data.allTimeScans);
   };
 
+  const replaceQRData = (data) => {
+    setAllQRs(data.codeQRs);
+    setAllTimeQRs(data.allTimeQRs);
+    setAllTimeScans(data.allTimeScans);
+  };
+
   /* Get ALL QRS on page load */
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_URL}/qr/all`, {}).then(async (res) => {
       const data = await res.json();
       console.log(data);
-      setAllQRs(data.allQRS);
+      setAllQRs([...allQRS, data.allQRS]);
       setAllTimeQRs(data.allTimeQRs);
       setAllTimeScans(data.allTimeScans);
       if (data.error) {
@@ -32,11 +39,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <MainBanner allTimeQRs={allTimeQRs} allTimeScans={allTimeScans} />
-      <br></br>
-      <CreateQRForm addNewQRData={addNewQRData} />
-      <AllQRS allQRS={allQRS} />
+    <main className="flex min-h-screen flex-col items-center p-12">
+      <MainBanner />
+      <AllTimeStats allTimeQRs={allTimeQRs} allTimeScans={allTimeScans} />
+      <FlyoutForm addNewQRData={addNewQRData} />
+      <AllQRS allQRS={allQRS} replaceQRData={replaceQRData} />
     </main>
   );
 }
